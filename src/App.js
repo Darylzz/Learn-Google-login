@@ -1,6 +1,7 @@
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
   const [profile, setProfile] = useState([]);
@@ -31,7 +32,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="App">
       <h2>React Google Login</h2>
       <br />
       <br />
