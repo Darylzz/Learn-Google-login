@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState(null);
 
   const clientId = "119091945038-36ql69g9s796qui4jfp48pno4psgjhe4.apps.googleusercontent.com";
 
@@ -21,6 +21,16 @@ function App() {
   const onSuccess = res => {
     console.log("success", res);
     setProfile(res.profileObj);
+
+    fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
+      headers: {
+        Authorization: `Bearer ${res.accessToken}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("User email:", data.email);
+      });
   };
 
   const onFailure = res => {
@@ -38,7 +48,7 @@ function App() {
       <br />
       {profile ? (
         <div>
-          <img src={profile.imageUrl} alt="User image" />
+          <img src={profile.imageUrl} alt="UserImage" />
           <h3>User Login</h3>
           <p>Name: {profile.name}</p>
           <p>Email: {profile.email}</p>
